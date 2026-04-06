@@ -3,244 +3,239 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="未来感と静けさが共存する個人用ホームページ。活動、作品、思想を一つの体験として届けるポートフォリオサイト。">
-  <title>Ambient Future Studio</title>
+  <meta name="description" content="遊べる個人サイト。おみくじと今日の運勢を中心に、訪れるたびに気分が少し上向く体験型ホームページ。">
+  <title>Fortune Playground</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="site-shell">
-    <div class="background-layer" aria-hidden="true">
-      <div class="aurora aurora-a"></div>
-      <div class="aurora aurora-b"></div>
-      <div class="grid-haze"></div>
-      <div class="orbital orbital-a"></div>
-      <div class="orbital orbital-b"></div>
-      <div class="pointer-glow"></div>
-    </div>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="cursor-aura" aria-hidden="true"></div>
 
-    <header class="topbar" id="top">
-      <a class="brand" href="#hero" aria-label="ページ先頭へ戻る">
-        <span class="brand-mark">01</span>
-        <span class="brand-copy">
-          <strong>Ambient Future</strong>
-          <span>Personal Index</span>
-        </span>
-      </a>
-      <nav class="global-nav" aria-label="主要ナビゲーション">
-        <a href="#about">紹介</a>
-        <a href="#skills">領域</a>
-        <a href="#works">作品</a>
-        <a href="#contact">連絡</a>
-      </nav>
-    </header>
+  <header class="topbar" id="top">
+    <a class="brand" href="#hero">
+      <span class="brand-badge">遊</span>
+      <span class="brand-text">
+        <strong>Fortune Playground</strong>
+        <span>playful personal homepage</span>
+      </span>
+    </a>
+    <nav class="nav" aria-label="主要ナビゲーション">
+      <a href="#omikuji">おみくじ</a>
+      <a href="#today">今日の運勢</a>
+      <a href="#about">このサイト</a>
+      <a href="#contact">連絡先</a>
+    </nav>
+  </header>
 
-    <main>
-      <section class="hero section-panel" id="hero">
-        <div class="hero-copy" data-reveal>
-          <p class="eyebrow">パーソナルサイト / ポートフォリオ</p>
-          <h1>
-            静かな熱量で、<br>
-            新しい風景を設計する。
-          </h1>
-          <p class="lead">
-            発想、設計、表現を横断しながら、デジタル上に心地よい緊張感と余白をつくる。
-            技術と感性を両輪に、訪問者がすっと入り込めるページを目指します。
-          </p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#works">最新の作品</a>
-            <a class="button button-secondary" href="#about">プロフィール</a>
-          </div>
+  <main>
+    <section class="hero section" id="hero">
+      <div class="hero-copy" data-reveal>
+        <p class="eyebrow">Touch / Scroll / Play</p>
+        <h1>
+          今日は少し、<br>
+          遊ぶように運をひらく。
+        </h1>
+        <p class="lead">
+          ここはプロフィールを読むだけの場所ではなく、触れるたびに空気が変わる個人サイトです。
+          おみくじを引いて、今日の運勢を受け取り、ちょっとだけ気分のいい未来へ進めます。
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#omikuji">おみくじを引く</a>
+          <a class="button button-secondary" href="#today">今日の運勢を見る</a>
         </div>
+      </div>
 
-        <div class="hero-visual" data-depth="0.18" aria-hidden="true">
-          <div class="hero-card glass-card card-main">
-            <p class="card-label">Current Theme</p>
-            <p class="card-title">Atmosphere Driven Design</p>
-            <p class="card-text">
-              情報を整理するだけでなく、視線の流れと感情の起伏まで含めて設計する。
-            </p>
-          </div>
-          <div class="hero-card glass-card card-sub">
-            <p class="card-label">フォーカス</p>
-            <ul class="micro-list">
-              <li>Web / UI / Frontend</li>
-              <li>Creative Direction</li>
-              <li>Interactive Motion</li>
-            </ul>
-          </div>
-          <div class="signal-panel glass-card">
-            <span class="signal-line"></span>
-            <span class="signal-line short"></span>
-            <span class="signal-line wide"></span>
-            <p>Ideas translating into interfaces</p>
-          </div>
+      <div class="hero-stage" data-depth="0.14" aria-hidden="true">
+        <div class="float-card ticket-card">
+          <p class="mini-label">Today</p>
+          <p class="big-copy">LUCK</p>
+          <p class="small-copy">Tap the page. Let it glow.</p>
         </div>
-      </section>
-
-      <section class="about section-panel" id="about">
-        <div class="section-heading" data-reveal>
-          <p class="eyebrow">紹介</p>
-          <h2>自己紹介</h2>
+        <div class="float-card capsule-card">
+          <span class="capsule capsule-a"></span>
+          <span class="capsule capsule-b"></span>
+          <span class="capsule capsule-c"></span>
         </div>
-        <div class="about-layout">
-          <article class="glass-card about-story" data-reveal>
-            <p class="section-kicker">プロフィール</p>
-            <h3>余白と先進性の両立を探る、個人の実験室。</h3>
-            <p>
-              ここには、名前や肩書きだけでは表しきれない制作姿勢を置いています。
-              直感的な美しさと、長く使える設計。その二つが自然に共存するWeb体験をつくることが現在の主題です。
-            </p>
-            <p>
-              仮テキストとして、ここには経歴や拠点、興味領域、制作スタンスなどを記載できます。
-              後から自分の言葉へ差し替えやすいよう、文章量は扱いやすい長さに調整しています。
-            </p>
-          </article>
+        <div class="float-card orbit-card">
+          <span class="orbit"></span>
+          <span class="orbit orbit-delayed"></span>
+          <p>FORTUNE SIGNAL</p>
+        </div>
+      </div>
+    </section>
 
-          <aside class="glass-card profile-rail" data-reveal>
-            <p class="section-kicker">Snapshot</p>
-            <dl class="profile-list">
+    <section class="fortune-zones section" id="omikuji">
+      <div class="section-heading" data-reveal>
+        <p class="eyebrow">Omikuji</p>
+        <h2>おみくじを引く</h2>
+        <p>
+          ボタンを押すたびに、運勢・一言・ラッキーアイテム・行動ヒントが切り替わります。
+          ほんの少し大げさなくらいが、今日はちょうどいいかもしれません。
+        </p>
+      </div>
+
+      <div class="fortune-layout">
+        <article class="fortune-machine panel" data-reveal>
+          <div class="machine-head">
+            <p class="machine-title">Omikuji Machine</p>
+            <p class="machine-sub">運の波形を読み込み中</p>
+          </div>
+
+          <div class="fortune-stage" id="fortuneStage">
+            <div class="fortune-burst" aria-hidden="true"></div>
+            <div class="fortune-shell" id="fortuneShell">
+              <span class="shell-core">御</span>
+            </div>
+          </div>
+
+          <button class="draw-button" id="drawOmikuji" type="button" aria-describedby="fortuneResult">
+            おみくじを引く
+          </button>
+
+          <div class="fortune-result" id="fortuneResult" aria-live="polite">
+            <p class="result-rank">準備OK</p>
+            <h3>気分が乗ったら、引いてみてください。</h3>
+            <p class="result-message">
+              今日はどんな運が出ても、演出込みで楽しむのが正解です。
+            </p>
+            <dl class="result-meta">
               <div>
-                <dt>拠点</dt>
-                <dd>Tokyo / Remote</dd>
+                <dt>ラッキーアイテム</dt>
+                <dd>まだ秘密</dd>
               </div>
               <div>
-                <dt>役割</dt>
-                <dd>Designer / Frontend / Maker</dd>
-              </div>
-              <div>
-                <dt>関心</dt>
-                <dd>UI演出、設計美、創造的実装</dd>
-              </div>
-              <div>
-                <dt>姿勢</dt>
-                <dd>静かで強い、印象に残るものづくり</dd>
+                <dt>おすすめアクション</dt>
+                <dd>深呼吸してスタート</dd>
               </div>
             </dl>
-          </aside>
-        </div>
-      </section>
+          </div>
+        </article>
 
-      <section class="skills section-panel" id="skills">
-        <div class="section-heading" data-reveal>
-          <p class="eyebrow">領域</p>
-          <h2>活動内容 / スキル</h2>
-        </div>
-        <div class="skill-grid">
-          <article class="glass-card skill-card" data-reveal data-depth="0.08">
-            <p class="section-kicker">01</p>
-            <h3>体験設計</h3>
-            <p>
-              情報の順序、視線誘導、余白、リズムまで含めて設計し、記憶に残る導線をつくります。
+        <aside class="fortune-side" data-reveal>
+          <div class="mini-panel panel">
+            <p class="mini-label">How To Enjoy</p>
+            <ul class="tips-list">
+              <li>朝に1回引く</li>
+              <li>気分転換でもう1回引く</li>
+              <li>結果を友人に共有して遊ぶ</li>
+            </ul>
+          </div>
+          <div class="mini-panel panel accent-panel">
+            <p class="mini-label">Mood</p>
+            <p class="accent-copy">
+              「占い」というより、今日は少し楽しく動き出すためのきっかけ。
             </p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="today-zone section" id="today">
+      <div class="section-heading" data-reveal>
+        <p class="eyebrow">Today's Fortune</p>
+        <h2>今日の運勢</h2>
+        <p>
+          日付に応じて、その日の気分を彩るデイリー運勢を表示します。
+          眺めるだけでも楽しいように、5つの項目をまとめてカード化しました。
+        </p>
+      </div>
+
+      <div class="today-panel panel" data-reveal>
+        <div class="today-main">
+          <p class="mini-label" id="todayDateLabel">TODAY SIGNAL</p>
+          <h3 id="todayHeadline">今日の運勢を計算中です。</h3>
+          <p id="todaySummary">
+            少しだけお待ちください。今日の空気感を言葉に変換しています。
+          </p>
+        </div>
+
+        <div class="today-grid">
+          <article class="today-card" data-tone="love">
+            <p>恋愛運</p>
+            <strong id="fortuneLove">-</strong>
           </article>
-          <article class="glass-card skill-card" data-reveal data-depth="0.12">
-            <p class="section-kicker">02</p>
-            <h3>フロントエンド実装</h3>
-            <p>
-              HTML / CSS / JavaScript を軸に、軽さと完成度を両立したインタラクションを組み込みます。
-            </p>
+          <article class="today-card" data-tone="work">
+            <p>仕事運</p>
+            <strong id="fortuneWork">-</strong>
           </article>
-          <article class="glass-card skill-card" data-reveal data-depth="0.1">
-            <p class="section-kicker">03</p>
-            <h3>ビジュアルディレクション</h3>
-            <p>
-              タイポグラフィ、配色、光、質感を統合し、空気感そのものをデザインします。
-            </p>
+          <article class="today-card" data-tone="money">
+            <p>金運</p>
+            <strong id="fortuneMoney">-</strong>
           </article>
-          <article class="glass-card skill-card" data-reveal data-depth="0.14">
-            <p class="section-kicker">04</p>
-            <h3>継続的な改善</h3>
-            <p>
-              公開後の運用も前提に、差し替えや拡張がしやすい構造でサイトを育てていきます。
-            </p>
+          <article class="today-card" data-tone="health">
+            <p>健康運</p>
+            <strong id="fortuneHealth">-</strong>
+          </article>
+          <article class="today-card wide" data-tone="keyword">
+            <p>今日のキーワード</p>
+            <strong id="fortuneKeyword">-</strong>
           </article>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="works section-panel" id="works">
-        <div class="section-heading" data-reveal>
-          <p class="eyebrow">実績</p>
-          <h2>作品・実績・取り組み</h2>
-        </div>
-        <div class="work-stack">
-          <article class="work-card glass-card" data-reveal>
-            <div class="work-index">Case 01</div>
-            <div class="work-body">
-              <h3>Concept Website / Immersive Landing</h3>
-              <p>
-                静かな光のレイヤーと情報の抑揚によって、ブランドの世界観を印象づけるランディングページを制作。
-              </p>
-            </div>
-            <div class="work-tags">
-              <span>Branding</span>
-              <span>Motion</span>
-              <span>Frontend</span>
-            </div>
-          </article>
+    <section class="about-zone section" id="about">
+      <div class="section-heading" data-reveal>
+        <p class="eyebrow">About This Site</p>
+        <h2>このサイトについて</h2>
+      </div>
 
-          <article class="work-card glass-card featured" data-reveal>
-            <div class="work-index">Case 02</div>
-            <div class="work-body">
-              <h3>Personal System / Creative Archive</h3>
-              <p>
-                個人の思考・制作ログ・作品を一つの流れで見せるアーカイブサイト。読み物と作品集の中間を狙った構成です。
-              </p>
-            </div>
-            <div class="work-tags">
-              <span>Archive</span>
-              <span>Writing</span>
-              <span>UI System</span>
-            </div>
-          </article>
+      <div class="about-grid">
+        <article class="panel about-card" data-reveal>
+          <p class="mini-label">Concept</p>
+          <h3>プロフィールを遊び場に変える。</h3>
+          <p>
+            作品や肩書きを整然と並べるよりも、この人の空気感や発想が伝わることを優先した個人サイトです。
+            少し笑えて、少し気分が上がって、気づけば記憶に残る。そんな温度を目指しています。
+          </p>
+        </article>
 
-          <article class="work-card glass-card" data-reveal>
-            <div class="work-index">Case 03</div>
-            <div class="work-body">
-              <h3>Prototype Lab / Experimental Interface</h3>
-              <p>
-                新しい操作感や視覚体験を検証するための試作群。小さな実験を積み重ね、次の表現を探索しています。
-              </p>
-            </div>
-            <div class="work-tags">
-              <span>Prototype</span>
-              <span>Research</span>
-              <span>Creative Code</span>
-            </div>
-          </article>
-        </div>
-      </section>
+        <article class="panel about-card" data-reveal>
+          <p class="mini-label">What I Do</p>
+          <h3>つくること、試すこと、驚かせること。</h3>
+          <p>
+            ここには本来、自己紹介、活動内容、制作領域、リンク集などを入れられます。
+            今は仮文ですが、後から自分の肩書きや制作テーマに自然に置き換えられる構造にしてあります。
+          </p>
+        </article>
 
-      <section class="contact section-panel" id="contact">
-        <div class="section-heading" data-reveal>
-          <p class="eyebrow">連絡</p>
+        <article class="panel about-card" data-reveal>
+          <p class="mini-label">Sections</p>
+          <h3>遊びと情報が、ちゃんと両立する設計。</h3>
+          <p>
+            おみくじと今日の運勢を入口にしつつ、下層では個人サイトとして必要な情報も拾えるように整理しています。
+            ただ楽しいだけで終わらず、公開用のホームページとして使える形です。
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="contact-zone section" id="contact">
+      <div class="contact-panel panel" data-reveal>
+        <div class="contact-copy">
+          <p class="eyebrow">Contact</p>
           <h2>連絡先</h2>
+          <p>
+            気軽な感想、制作相談、コラボの話まで歓迎です。
+            公開時はここを実際のメールやSNSに差し替えて使ってください。
+          </p>
         </div>
-        <div class="contact-panel glass-card" data-reveal>
-          <div class="contact-copy">
-            <p class="section-kicker">Selective collaborations welcome</p>
-            <h3>相談、制作依頼、ゆるやかな会話まで。</h3>
-            <p>
-              メールアドレスやSNS、GitHubへの導線を整えておくと、興味を持った方がすぐに繋がれます。
-              シンプルさを残しつつ、必要な情報を丁寧に伝えることが大切です。
-            </p>
-          </div>
-          <div class="contact-links">
-            <a href="mailto:hello@example.com">hello@example.com</a>
-            <a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
-            <a href="https://x.com/" target="_blank" rel="noreferrer">X</a>
-          </div>
+        <div class="contact-links">
+          <a href="mailto:hello@example.com">hello@example.com</a>
+          <a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
+          <a href="https://x.com/" target="_blank" rel="noreferrer">X / Social</a>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
+  </main>
 
-    <footer class="footer">
-      <p>Ambient Future Studio / Personal Homepage</p>
-      <a href="#top">Back to top</a>
-    </footer>
-  </div>
+  <footer class="footer">
+    <p>Fortune Playground</p>
+    <a href="#top">ページ上部へ戻る</a>
+  </footer>
 
   <script src="script.js"></script>
 </body>
