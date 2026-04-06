@@ -445,6 +445,7 @@ main {
   border-radius: 28px;
   background:
     radial-gradient(circle at center, rgba(255, 255, 255, 0.84), rgba(255, 230, 202, 0.7) 40%, rgba(255, 212, 171, 0.46) 75%, transparent 76%);
+  transition: background 320ms ease, box-shadow 320ms ease, transform 320ms ease;
 }
 
 .fortune-shell {
@@ -460,6 +461,7 @@ main {
   font-size: 3.2rem;
   box-shadow: 0 28px 46px rgba(255, 79, 147, 0.34);
   transform: rotate(-6deg);
+  transition: background 320ms ease, box-shadow 320ms ease, filter 320ms ease;
 }
 
 .fortune-shell.is-shaking {
@@ -486,6 +488,70 @@ main {
   animation: burstFlash 780ms ease-out forwards;
 }
 
+.fortune-stage.rank-daikichi {
+  background:
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.92), rgba(255, 239, 166, 0.78) 38%, rgba(255, 191, 64, 0.45) 74%, transparent 75%);
+  box-shadow: inset 0 0 60px rgba(255, 191, 64, 0.24);
+}
+
+.fortune-stage.rank-chukichi {
+  background:
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.9), rgba(172, 245, 227, 0.56) 42%, rgba(89, 184, 255, 0.28) 74%, transparent 75%);
+}
+
+.fortune-stage.rank-shokichi {
+  background:
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.9), rgba(170, 201, 255, 0.56) 40%, rgba(120, 91, 255, 0.24) 72%, transparent 74%);
+}
+
+.fortune-stage.rank-kichi {
+  background:
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.9), rgba(255, 213, 171, 0.62) 42%, rgba(255, 138, 61, 0.28) 72%, transparent 74%);
+}
+
+.fortune-stage.rank-suekichi {
+  background:
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.88), rgba(255, 228, 178, 0.56) 40%, rgba(255, 191, 64, 0.22) 72%, transparent 74%);
+}
+
+.fortune-stage.rank-kyo {
+  background:
+    radial-gradient(circle at center, rgba(244, 239, 255, 0.78), rgba(148, 130, 201, 0.34) 42%, rgba(67, 53, 95, 0.3) 74%, transparent 76%);
+  box-shadow: inset 0 0 56px rgba(67, 53, 95, 0.18);
+}
+
+.fortune-stage.rank-daikichi .fortune-burst {
+  background:
+    conic-gradient(from 0deg, rgba(255, 191, 64, 0.34), rgba(255, 79, 147, 0.2), rgba(255, 250, 220, 0.34), rgba(255, 191, 64, 0.34));
+}
+
+.fortune-stage.rank-kyo .fortune-burst {
+  background:
+    conic-gradient(from 0deg, rgba(67, 53, 95, 0.26), rgba(120, 91, 255, 0.24), rgba(89, 184, 255, 0.16), rgba(67, 53, 95, 0.26));
+}
+
+.fortune-shell.rank-daikichi {
+  box-shadow: 0 0 0 10px rgba(255, 191, 64, 0.12), 0 28px 52px rgba(255, 163, 32, 0.34);
+}
+
+.fortune-shell.rank-chukichi {
+  box-shadow: 0 24px 42px rgba(77, 202, 168, 0.3);
+}
+
+.fortune-shell.rank-shokichi {
+  box-shadow: 0 24px 42px rgba(120, 91, 255, 0.26);
+}
+
+.fortune-shell.rank-kichi,
+.fortune-shell.rank-suekichi {
+  box-shadow: 0 24px 42px rgba(255, 138, 61, 0.24);
+}
+
+.fortune-shell.rank-kyo {
+  box-shadow: 0 22px 44px rgba(39, 30, 61, 0.34);
+  filter: saturate(0.88);
+}
+
 .fortune-result {
   margin-top: 1.4rem;
   padding: 1.2rem 1.1rem 0;
@@ -497,6 +563,27 @@ main {
   font-size: 0.84rem;
   color: var(--hot-pink);
   letter-spacing: 0.08em;
+}
+
+.result-rank.rank-daikichi {
+  color: #dd7b00;
+}
+
+.result-rank.rank-chukichi {
+  color: #209f80;
+}
+
+.result-rank.rank-shokichi {
+  color: #5f55db;
+}
+
+.result-rank.rank-kichi,
+.result-rank.rank-suekichi {
+  color: #d56b22;
+}
+
+.result-rank.rank-kyo {
+  color: #5c4b87;
 }
 
 .result-message {
@@ -680,6 +767,34 @@ main {
   }
 }
 
+@keyframes burstFlashDaikichi {
+  0% {
+    opacity: 0;
+    transform: scale(0.54) rotate(0deg);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.75) rotate(220deg);
+  }
+}
+
+@keyframes burstFlashKyo {
+  0% {
+    opacity: 0;
+    transform: scale(0.72) rotate(0deg);
+  }
+  35% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.18) rotate(-120deg);
+  }
+}
+
 @keyframes bounceSoft {
   0%, 100% { transform: translate(0, 0); }
   50% { transform: translate(0, -12px); }
@@ -688,6 +803,14 @@ main {
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.fortune-stage.rank-daikichi.is-bursting .fortune-burst {
+  animation: burstFlashDaikichi 980ms ease-out forwards;
+}
+
+.fortune-stage.rank-kyo.is-bursting .fortune-burst {
+  animation: burstFlashKyo 820ms ease-out forwards;
 }
 
 @media (max-width: 1080px) {

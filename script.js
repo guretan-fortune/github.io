@@ -11,6 +11,7 @@ const resultHeading = document.querySelector(".fortune-result h3");
 const resultMessage = document.querySelector(".result-message");
 const resultItem = document.querySelector(".result-meta div:first-child dd");
 const resultAction = document.querySelector(".result-meta div:last-child dd");
+const machineSub = document.querySelector(".machine-sub");
 
 const todayDateLabel = document.getElementById("todayDateLabel");
 const todayHeadline = document.getElementById("todayHeadline");
@@ -23,6 +24,7 @@ const fortuneKeyword = document.getElementById("fortuneKeyword");
 
 const omikujiResults = [
   {
+    id: "daikichi",
     rank: "大吉",
     title: "今日は勢いのある当たり日です。",
     message: "遠慮していると運が先に行きます。少し大胆なくらいの一歩が、空気を一気に変えてくれそうです。",
@@ -32,6 +34,7 @@ const omikujiResults = [
     symbol: "大",
   },
   {
+    id: "chukichi",
     rank: "中吉",
     title: "素直さが、そのまま追い風になります。",
     message: "派手な展開ではなくても、丁寧に選んだ行動が良い結果へつながります。今日は整える日です。",
@@ -41,6 +44,7 @@ const omikujiResults = [
     symbol: "中",
   },
   {
+    id: "shokichi",
     rank: "小吉",
     title: "静かなラッキーが潜んでいます。",
     message: "目立つ幸運ではなくても、小さな納得感が何度か訪れそうです。焦らず拾うと満足度が上がります。",
@@ -50,6 +54,7 @@ const omikujiResults = [
     symbol: "小",
   },
   {
+    id: "kichi",
     rank: "吉",
     title: "肩の力を抜いた方がうまくいきます。",
     message: "今日は完璧主義より、軽やかな着手が正解です。まず始めるだけで十分流れが変わります。",
@@ -59,6 +64,7 @@ const omikujiResults = [
     symbol: "吉",
   },
   {
+    id: "suekichi",
     rank: "末吉",
     title: "後半に向けてじわじわ上向く日です。",
     message: "朝のペースが鈍くても問題ありません。午後から突然リズムが合ってくる気配があります。",
@@ -68,6 +74,7 @@ const omikujiResults = [
     symbol: "末",
   },
   {
+    id: "kyo",
     rank: "凶",
     title: "今日は無理に勝ちにいかない方が賢い日です。",
     message: "運勢が低めの日は、雑に使うと減りやすいだけです。守りを固めるとむしろ明日が強くなります。",
@@ -77,6 +84,9 @@ const omikujiResults = [
     symbol: "凶",
   },
 ];
+
+const VISITOR_KEY = "fortune-playground-visitor-id";
+const OMIKUJI_KEY = "fortune-playground-omikuji";
 
 const dailyPools = {
   headline: [
@@ -123,13 +133,48 @@ revealTargets.forEach((element) => {
   revealObserver.observe(element);
 });
 
-const randomFrom = (items, seed) => items[seed % items.length];
+const randomFrom = (items, seed) => items[Math.abs(seed) % items.length];
+
+const hashString = (value) => {
+  let hash = 0;
+
+  for (let index = 0; index < value.length; index += 1) {
+    hash = (hash << 5) - hash + value.charCodeAt(index);
+    hash |= 0;
+  }
+
+  return Math.abs(hash);
+};
+
+const getVisitorId = () => {
+  const saved = window.localStorage.getItem(VISITOR_KEY);
+  if (saved) {
+    return saved;
+  }
+
+  const seedSource = [
+    navigator.userAgent,
+    navigator.language,
+    Intl.DateTimeFormat().resolvedOptions().timeZone,
+    window.screen.width,
+    window.screen.height,
+    Math.random().toString(36).slice(2, 10),
+  ].join("|");
+
+  const visitorId = `vp-${hashString(seedSource)}-${Date.now().toString(36)}`;
+  window.localStorage.setItem(VISITOR_KEY, visitorId);
+  return visitorId;
+};
+
+const getTodayKey = () => {
+  const today = new Date();
+  return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+};
 
 const getDailySeed = () => {
-  const today = new Date();
-  return Number(
-    `${today.getFullYear()}${String(today.getMonth() + 1).padStart(2, "0")}${String(today.getDate()).padStart(2, "0")}`
-  );
+  const todayKey = getTodayKey();
+  const visitorSeed = hashString(getVisitorId());
+  return hashString(`${todayKey}|${visitorSeed}`);
 };
 
 const renderDailyFortune = () => {
@@ -152,7 +197,28 @@ const renderDailyFortune = () => {
   fortuneKeyword.textContent = randomFrom(dailyPools.keyword, seed + 17);
 };
 
+const clearFortuneRankClasses = () => {
+  const rankClasses = [
+    "rank-daikichi",
+    "rank-chukichi",
+    "rank-shokichi",
+    "rank-kichi",
+    "rank-suekichi",
+    "rank-kyo",
+  ];
+
+  fortuneStage.classList.remove(...rankClasses);
+  fortuneShell.classList.remove(...rankClasses);
+  resultRank.classList.remove(...rankClasses);
+};
+
 const setFortuneVisual = (result) => {
+  const rankClass = `rank-${result.id}`;
+
+  clearFortuneRankClasses();
+  fortuneStage.classList.add(rankClass);
+  fortuneShell.classList.add(rankClass);
+  resultRank.classList.add(rankClass);
   fortuneShell.style.background = result.tone;
   fortuneShell.querySelector(".shell-core").textContent = result.symbol;
   resultRank.textContent = result.rank;
@@ -160,17 +226,23 @@ const setFortuneVisual = (result) => {
   resultMessage.textContent = result.message;
   resultItem.textContent = result.item;
   resultAction.textContent = result.action;
+  if (machineSub) {
+    machineSub.textContent = result.rank === "凶" ? "波を静かに整えています" : `${result.rank}のシグナルを受信しました`;
+  }
 };
 
-const runFortuneAnimation = (result) => {
+const runFortuneAnimation = (result, options = {}) => {
+  const { skipDrawLock = false } = options;
   fortuneShell.classList.remove("is-shaking", "is-revealed");
   fortuneStage.classList.remove("is-bursting");
 
   void fortuneShell.offsetWidth;
 
   fortuneShell.classList.add("is-shaking");
-  drawButton.disabled = true;
-  drawButton.textContent = "運勢を生成中...";
+  if (drawButton) {
+    drawButton.disabled = true;
+    drawButton.textContent = "運勢を生成中...";
+  }
 
   window.setTimeout(() => {
     setFortuneVisual(result);
@@ -180,16 +252,83 @@ const runFortuneAnimation = (result) => {
   }, 520);
 
   window.setTimeout(() => {
-    drawButton.disabled = false;
-    drawButton.textContent = "もう一度引く";
+    if (!drawButton) {
+      return;
+    }
+
+    if (skipDrawLock) {
+      drawButton.disabled = false;
+      drawButton.textContent = "おみくじを引く";
+      return;
+    }
+
+    drawButton.disabled = true;
+    drawButton.textContent = "今日は引き済みです";
     fortuneStage.classList.remove("is-bursting");
   }, 1100);
 };
 
+const saveTodayOmikuji = (result) => {
+  window.localStorage.setItem(
+    OMIKUJI_KEY,
+    JSON.stringify({
+      date: getTodayKey(),
+      resultId: result.id,
+    })
+  );
+};
+
+const getSavedTodayOmikuji = () => {
+  const raw = window.localStorage.getItem(OMIKUJI_KEY);
+  if (!raw) {
+    return null;
+  }
+
+  try {
+    const parsed = JSON.parse(raw);
+    if (parsed.date !== getTodayKey()) {
+      return null;
+    }
+
+    return omikujiResults.find((item) => item.id === parsed.resultId) || null;
+  } catch {
+    return null;
+  }
+};
+
+const restoreTodayOmikuji = () => {
+  const savedResult = getSavedTodayOmikuji();
+
+  if (!savedResult) {
+    if (drawButton) {
+      drawButton.disabled = false;
+      drawButton.textContent = "おみくじを引く";
+    }
+    return;
+  }
+
+  setFortuneVisual(savedResult);
+  fortuneShell.classList.add("is-revealed");
+  if (drawButton) {
+    drawButton.disabled = true;
+    drawButton.textContent = "今日は引き済みです";
+  }
+};
+
 if (drawButton) {
   drawButton.addEventListener("click", () => {
-    const index = Math.floor(Math.random() * omikujiResults.length);
-    runFortuneAnimation(omikujiResults[index]);
+    const alreadyDrawn = getSavedTodayOmikuji();
+    if (alreadyDrawn) {
+      restoreTodayOmikuji();
+      return;
+    }
+
+    const visitorSeed = hashString(`${getVisitorId()}|${getTodayKey()}|omikuji`);
+    const index = visitorSeed % omikujiResults.length;
+    const result = omikujiResults[index];
+
+    saveTodayOmikuji(result);
+    runFortuneAnimation(result);
   });
 }
 
@@ -239,4 +378,5 @@ window.addEventListener("resize", applyParallax);
 window.addEventListener("load", applyParallax);
 
 renderDailyFortune();
+restoreTodayOmikuji();
 applyParallax();
