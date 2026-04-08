@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ocoinで装備やチケット、補給品を購入できる深層商店。">
+  <title>深層商店 | Fate Grow Archive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-shop">
+  <div class="cosmos" aria-hidden="true">
+    <div class="cosmos-gradient"></div>
+    <div class="moon-orbit moon-orbit-a"></div>
+    <div class="moon-orbit moon-orbit-b"></div>
+    <div class="aurora aurora-a"></div>
+    <div class="aurora aurora-b"></div>
+    <div class="particle-field" id="particleField"></div>
+  </div>
+
+  <header class="site-header shell">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">FG</span>
+      <span>
+        <strong>Fate Grow Archive</strong>
+        <small>深層商店 / Shop</small>
+      </span>
+    </a>
+    <nav class="site-nav" aria-label="ページ遷移">
+      <a href="index.html">メインページへ戻る</a>
+      <a href="boss.html">ボスへ向かう</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="shell section shop-hero">
+      <article class="glass shop-hero-card">
+        <p class="eyebrow">Deep Shop</p>
+        <h1>深層商店</h1>
+        <p class="hero-lead">
+          ボス撃破で得た `ocoin` を、次の戦いの準備へ変えるための専用ページです。
+          カードチケット、補給品、常設装備を整え、より深い地下階層へ備えてください。
+        </p>
+      </article>
+
+      <article class="glass wallet-panel">
+        <p class="panel-label">Wallet</p>
+        <h2><span id="walletCoin">0</span> ocoin</h2>
+        <p class="panel-note" id="shopFloorHint">現在は地下1階の攻略準備段階です。</p>
+        <div class="status-mini-grid compact">
+          <div>
+            <span>武器</span>
+            <strong id="walletWeapon">0</strong>
+          </div>
+          <div>
+            <span>防具</span>
+            <strong id="walletArmor">0</strong>
+          </div>
+          <div>
+            <span>靴</span>
+            <strong id="walletBoots">0</strong>
+          </div>
+          <div>
+            <span>指環</span>
+            <strong id="walletCharm">0</strong>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="shell section">
+      <div class="section-heading">
+        <p class="eyebrow">Lineup</p>
+        <h2>商品一覧</h2>
+        <p>常設装備、補給品、追加抽選用のチケットをここで購入できます。</p>
+      </div>
+      <div class="shop-grid shop-grid-wide" id="shopGrid"></div>
+    </section>
+
+    <section class="shell section">
+      <div class="collection-layout">
+        <article class="glass inventory-panel">
+          <div class="panel-heading-row">
+            <div>
+              <p class="panel-label">Inventory</p>
+              <h3>現在の所持品</h3>
+            </div>
+            <p class="subtle">消耗品とカードチケット</p>
+          </div>
+          <div class="inventory-list" id="inventoryList"></div>
+        </article>
+
+        <article class="glass stats-panel">
+          <div class="panel-heading-row">
+            <div>
+              <p class="panel-label">Effective Stats</p>
+              <h3>装備込みステータス</h3>
+            </div>
+            <p class="subtle">購入済み装備の補正後</p>
+          </div>
+          <div class="stats-list" id="statsList"></div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" aria-live="polite"></div>
+
+  <script src="data.js"></script>
+  <script src="shop.js"></script>
+</body>
+</html>

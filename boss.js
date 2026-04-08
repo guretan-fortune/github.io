@@ -39,7 +39,7 @@
     collection: [],
     cardHistory: [],
     items: Object.values(ITEM_DEFS).reduce((acc, item) => { acc[item.id] = item.id === "potion" ? 1 : 0; return acc; }, {}),
-    economy: { ocoin: 0, equipment: { weapon: 0, armor: 0 } },
+    economy: { ocoin: 0, equipment: { weapon: 0, armor: 0, boots: 0, charm: 0 } },
     progress: {
       totalVisits: 0,
       visitStreak: 0,
@@ -100,8 +100,8 @@
     hp: state.economy.equipment.armor * 12,
     attack: state.economy.equipment.weapon * 6,
     defense: state.economy.equipment.armor * 6,
-    speed: 0,
-    luck: 0,
+    speed: state.economy.equipment.boots * 4,
+    luck: state.economy.equipment.charm * 4,
   });
 
   const effectiveStats = () => {
@@ -220,6 +220,8 @@
       }
       if (Math.random() < 0.65) state.items.regen_drop += 1;
       saveState();
+      renderStaticInfo();
+      renderItems();
 
       updateAnnouncement(
         "階層突破",
@@ -235,6 +237,7 @@
     } else {
       state.progress.bossLastResult = `lose-floor-${boss.floor}`;
       saveState();
+      renderStaticInfo();
       updateAnnouncement("敗北", "押し切られました。カード、装備、アイテム、ocoinの使い道を見直して再挑戦できます。", "announcement-lose");
       log(`Turn ${battle.turn}`, "旅人は退き、深層の重圧だけが残った。");
     }

@@ -102,6 +102,55 @@ const SHOP_ITEMS = [
     target: "armor",
     bonus: { defense: 6, hp: 12 },
   },
+  {
+    id: "shop-potion-pack",
+    name: "回復薬セット",
+    description: "回復薬を3個まとめて補充する。",
+    price: 900,
+    type: "item_bundle",
+    target: "potion",
+    amount: 3,
+  },
+  {
+    id: "shop-tonic-kit",
+    name: "強化戦術箱",
+    description: "強化薬1個と防御札1個をまとめて購入する。",
+    price: 1600,
+    type: "multi_item",
+    rewards: [
+      { target: "power_tonic", amount: 1 },
+      { target: "ward_talisman", amount: 1 },
+    ],
+  },
+  {
+    id: "shop-boots",
+    name: "月歩の靴",
+    description: "常設装備。購入するたび素早さが+4される。",
+    price: 1300,
+    type: "equipment",
+    target: "boots",
+    bonus: { speed: 4 },
+  },
+  {
+    id: "shop-charm",
+    name: "星運の指環",
+    description: "常設装備。購入するたび運が+4される。",
+    price: 1300,
+    type: "equipment",
+    target: "charm",
+    bonus: { luck: 4 },
+  },
+  {
+    id: "shop-rare-kit",
+    name: "深層儀式箱",
+    description: "カードチケット1枚と再生の雫1個をまとめて得る。",
+    price: 2200,
+    type: "multi_item",
+    rewards: [
+      { target: "card_ticket", amount: 1 },
+      { target: "regen_drop", amount: 1 },
+    ],
+  },
 ];
 
 const WORLD_PHASES = [

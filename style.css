@@ -732,6 +732,10 @@ button {
   gap: 24px;
 }
 
+.shop-grid-wide {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
 .shop-card {
   padding: 24px;
 }
@@ -818,6 +822,18 @@ button {
 
 .page-boss .site-header {
   padding-bottom: 18px;
+}
+
+.shop-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.65fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.shop-hero-card,
+.wallet-panel {
+  padding: 28px;
 }
 
 .boss-hero {
@@ -1004,7 +1020,8 @@ button {
   .collection-layout,
   .about-layout,
   .boss-hero,
-  .battle-layout {
+  .battle-layout,
+  .shop-hero {
     grid-template-columns: 1fr;
   }
 }

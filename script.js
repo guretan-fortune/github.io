@@ -44,10 +44,8 @@
     bossAdvice: byId("bossAdvice"),
     nextMilestone: byId("nextMilestone"),
     ocoinValue: byId("ocoinValue"),
-    shopCoinValue: byId("shopCoinValue"),
     weaponLevel: byId("weaponLevel"),
     armorLevel: byId("armorLevel"),
-    shopGrid: byId("shopGrid"),
     bossProgressSummary: byId("bossProgressSummary"),
     toast: byId("toast"),
   };
@@ -71,6 +69,8 @@
       equipment: {
         weapon: 0,
         armor: 0,
+        boots: 0,
+        charm: 0,
       },
     },
     progress: {
@@ -140,8 +140,8 @@
     hp: state.economy.equipment.armor * 12,
     attack: state.economy.equipment.weapon * 6,
     defense: state.economy.equipment.armor * 6,
-    speed: 0,
-    luck: 0,
+    speed: state.economy.equipment.boots * 4,
+    luck: state.economy.equipment.charm * 4,
   });
 
   const getEffectiveStats = () => {
@@ -366,37 +366,6 @@
     }).join("");
   };
 
-  const buyShopItem = (shopId) => {
-    const item = SHOP_ITEMS.find((entry) => entry.id === shopId);
-    if (!item) return;
-    if (state.economy.ocoin < item.price) {
-      toast("ocoin が足りません。");
-      return;
-    }
-    state.economy.ocoin -= item.price;
-    if (item.type === "item") state.items[item.target] += 1;
-    if (item.type === "equipment") state.economy.equipment[item.target] += 1;
-    saveState();
-    renderAll();
-    toast(`${item.name} を購入しました。`);
-  };
-
-  const renderShop = () => {
-    nodes.shopCoinValue.textContent = state.economy.ocoin;
-    nodes.shopGrid.innerHTML = SHOP_ITEMS.map((item) => `
-      <article class="glass shop-card">
-        <p class="panel-label">Shop Item</p>
-        <h3>${item.name}</h3>
-        <p class="card-copy">${item.description}</p>
-        <p class="shop-price">${item.price} ocoin</p>
-        <button class="button button-primary button-wide" data-shop-id="${item.id}" type="button" ${state.economy.ocoin >= item.price ? "" : "disabled"}>購入する</button>
-      </article>
-    `).join("");
-    nodes.shopGrid.querySelectorAll("[data-shop-id]").forEach((button) => {
-      button.addEventListener("click", () => buyShopItem(button.dataset.shopId));
-    });
-  };
-
   const updateButtons = () => {
     nodes.drawButton.disabled = false;
     nodes.drawButton.textContent = canDailyDraw()
@@ -446,7 +415,6 @@
     nodes.bossAdvice.textContent = `次の敵は「${boss.title}」。報酬は ${boss.reward} ocoin。`;
     nodes.nextMilestone.textContent = state.progress.currentFloor >= 10 ? "地下10階を制覇する" : `地下${Math.min(state.progress.currentFloor + 1, 10)}階を解放する`;
     nodes.ocoinValue.textContent = `${state.economy.ocoin} ocoin`;
-    nodes.shopCoinValue.textContent = state.economy.ocoin;
     nodes.weaponLevel.textContent = `${state.economy.equipment.weapon}`;
     nodes.armorLevel.textContent = `${state.economy.equipment.armor}`;
     nodes.bossProgressSummary.textContent = state.progress.currentFloor >= 10
@@ -459,7 +427,6 @@
     renderStats();
     renderInventory();
     renderCollection();
-    renderShop();
     updateButtons();
   };
 
