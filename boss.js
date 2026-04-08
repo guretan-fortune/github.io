@@ -6,6 +6,7 @@
     bossFloorTag: byId("bossFloorTag"),
     bossName: byId("bossName"),
     bossDescription: byId("bossDescription"),
+    bossVisualImage: byId("bossVisualImage"),
     bossVisualLabel: byId("bossVisualLabel"),
     bossImageNote: byId("bossImageNote"),
     playerBattleTitle: byId("playerBattleTitle"),
@@ -168,6 +169,8 @@
     nodes.bossFloorTag.textContent = `Basement ${boss.floor}`;
     nodes.bossName.textContent = boss.name;
     nodes.bossDescription.textContent = boss.description;
+    nodes.bossVisualImage.src = `Content/${encodeURIComponent(`ボス${boss.floor}`)}.png`;
+    nodes.bossVisualImage.alt = `${boss.name} の画像`;
     nodes.bossVisualLabel.textContent = boss.imageLabel;
     nodes.bossImageNote.textContent = `${boss.reward} ocoin を抱えるこの階層の支配者。勝てば次の地下階が開きます。`;
     nodes.playerBattleTitle.textContent = state.player.title;
