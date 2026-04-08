@@ -4,6 +4,7 @@
 
   const homeNodes = {
     todayDate: byId("todayDate"),
+    ritualTrigger: byId("ritualTrigger"),
     drawStatusTitle: byId("drawStatusTitle"),
     drawCard: byId("drawCard"),
     drawRarity: byId("drawRarity"),
@@ -101,6 +102,9 @@
       lastDrawDate: null,
       lastCardId: null,
       lastResult: null,
+      extraDrawDate: null,
+      extraDrawsAvailable: 0,
+      hiddenTapCount: 0,
     },
   });
 
@@ -150,6 +154,14 @@
 
   const state = loadState();
 
+  const syncDailySecrets = () => {
+    if (state.daily.extraDrawDate !== todayKey) {
+      state.daily.extraDrawDate = todayKey;
+      state.daily.extraDrawsAvailable = 0;
+      state.daily.hiddenTapCount = 0;
+    }
+  };
+
   const registerVisit = () => {
     const last = state.progress.lastVisitDate;
     if (last === todayKey) return;
@@ -169,6 +181,12 @@
   };
 
   registerVisit();
+  syncDailySecrets();
+
+  const canDrawToday = () => {
+    if (state.daily.lastDrawDate !== todayKey) return true;
+    return state.daily.extraDrawsAvailable > 0;
+  };
 
   const weightedRandomRarity = () => {
     const streakBonus = Math.min(state.progress.visitStreak * 0.005, 0.03);
@@ -259,6 +277,10 @@
       levelUps,
       drawnAt: todayKey,
     };
+
+    if (state.daily.lastDrawDate === todayKey && state.daily.extraDrawsAvailable > 0) {
+      state.daily.extraDrawsAvailable -= 1;
+    }
 
     state.daily.lastDrawDate = todayKey;
     state.daily.lastCardId = card.id;
@@ -388,7 +410,9 @@
     });
 
     homeNodes.drawStatusTitle.textContent = state.daily.lastDrawDate === todayKey
-      ? "今日の運命はすでに開かれています。明日また新しい一枚を。"
+      ? state.daily.extraDrawsAvailable > 0
+        ? `隠された余光が残っています。あと${state.daily.extraDrawsAvailable}回、もう一度引けます。`
+        : "今日の運命はすでに開かれています。明日また新しい一枚を。"
       : "まだ今日の運命は開かれていません。";
 
     homeNodes.playerTitle.textContent = state.player.title;
@@ -436,7 +460,7 @@
   };
 
   const performDraw = () => {
-    if (state.daily.lastDrawDate === todayKey) {
+    if (!canDrawToday()) {
       toast("今日はすでにカードを引いています。");
       return;
     }
@@ -450,7 +474,7 @@
       setCardView(card, result);
       setResultView(card, result);
       renderOverview();
-      homeNodes.drawButton.disabled = true;
+      renderButtonState();
 
       if (card.rarity === "Legendary") {
         homeNodes.drawCard.classList.add("legendary-flare");
@@ -462,10 +486,28 @@
   };
 
   const renderButtonState = () => {
-    homeNodes.drawButton.disabled = state.daily.lastDrawDate === todayKey;
-    homeNodes.drawButton.textContent = state.daily.lastDrawDate === todayKey
-      ? "今日はすでに引きました"
-      : "今日のカードを引く";
+    homeNodes.drawButton.disabled = false;
+    homeNodes.drawButton.textContent = canDrawToday()
+      ? state.daily.lastDrawDate === todayKey && state.daily.extraDrawsAvailable > 0
+        ? `隠し解放でもう一度引く (${state.daily.extraDrawsAvailable})`
+        : "今日のカードを引く"
+      : "今日はすでに引きました";
+  };
+
+  const handleHiddenTrigger = () => {
+    syncDailySecrets();
+    state.daily.hiddenTapCount += 1;
+
+    if (state.daily.hiddenTapCount % 5 === 0) {
+      state.daily.extraDrawsAvailable += 1;
+      saveState(state);
+      renderButtonState();
+      renderOverview();
+      toast("隠し儀式が開きました。もう一度引けます。");
+      return;
+    }
+
+    saveState(state);
   };
 
   const createParticles = () => {
@@ -483,6 +525,7 @@
   };
 
   homeNodes.drawButton.addEventListener("click", performDraw);
+  homeNodes.ritualTrigger.addEventListener("click", handleHiddenTrigger);
 
   createParticles();
   renderButtonState();

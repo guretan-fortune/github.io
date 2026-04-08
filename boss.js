@@ -155,7 +155,7 @@
     nodes.bossName.textContent = boss.name;
     nodes.bossDescription.textContent = boss.description;
     nodes.bossVisualLabel.textContent = "ASTRAL DEVOURER";
-    nodes.bossImageNote.textContent = `現在は Content フォルダ内の実画像を表示しています。差し替え先は boss.html の .boss-visual-image です。`;
+    nodes.bossImageNote.textContent = "星の残滓をまとい、深層で待ち受ける捕食者の姿。";
 
     nodes.playerBattleTitle.textContent = state.player.title;
     nodes.playerBattleLevel.textContent = `Lv${state.player.level} / EXP ${state.player.exp} / 次 ${experienceToNext(state.player.level)}`;
